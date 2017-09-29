@@ -12,10 +12,10 @@ export const addDeck = (deck) => (
 
 export const addCard = ({ deck, card }) => (
   AsyncStorage.getItem(DECKS_STORAGE_KEY, (err, result) => {
-    let deck = JSON.parse(result)[deck];
+    let workingDeck = JSON.parse(result)[deck];
     let questions = deck.questions;
     questions[questions.length] = card;
-    deck.questions = questions;
-    AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(deck));
+    workingDeck.questions = questions;
+    AsyncStorage.mergeItem(DECKS_STORAGE_KEY, JSON.stringify(workingDeck));
   })
-)
+);

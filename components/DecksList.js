@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Text, View, Button } from 'react-native';
+import { TouchableOpacity, View, Button, FlatList } from 'react-native';
 
-export default class DecksList extends Component {
+import { fetchDecks } from '../utils/api';
+import DecksListItem from './DecksListItem';
+
+class DecksList extends Component {
 
   static navigationOptions = ({ navigation }) => {
     const {navigate} = navigation;
@@ -16,16 +19,46 @@ export default class DecksList extends Component {
     };
   };
 
+  state = {
+    decks: []
+  }
+
+  componentDidMount = () => {
+    fetchDecks().then(
+      (decks) => {
+        this.setState({
+          decks: Object.keys(decks).map(
+            (deckKey) => decks[deckKey]
+          )
+        });
+      }
+    );
+  }
+
+  renderItem = ({ item }) => (
+    <TouchableOpacity
+      onPress={() => this.props.navigation.navigate('Deck', item)}
+    >
+      <DecksListItem deck={item}/>
+    </TouchableOpacity>
+  )
+  
   render() {
-    const { navigate } = this.props.navigation;
     return (
       <View>
-        <Text> Decks List View </Text>
-        <Button
-          onPress={() => navigate('Deck', { deck: 'FirstDeck' })}
-          title="First Deck"
-        />
+        {this.state.decks && (<FlatList
+          data={this.state.decks}
+          renderItem={this.renderItem}
+          keyExtractor={(item) => item.title}
+        />)}
       </View>
     );
   }
 }
+
+export default DecksList;
+
+{/* <Button
+  onPress={() => navigate('Deck', { deck: 'FirstDeck' })}
+  title="First Deck"
+/> */}
