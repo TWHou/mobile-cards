@@ -42,7 +42,7 @@ class DecksList extends Component {
       <DecksListItem deck={item}/>
     </TouchableOpacity>
   )
-  
+
   render() {
     return (
       <View>
@@ -57,8 +57,3 @@ class DecksList extends Component {
 }
 
 export default DecksList;
-
-{/* <Button
-  onPress={() => navigate('Deck', { deck: 'FirstDeck' })}
-  title="First Deck"
-/> */}

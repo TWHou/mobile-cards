@@ -7,7 +7,7 @@ export default class DecksListItem extends Component {
     return (
       <View>
         <Text> {title} </Text>
-        <Text> {questions.length} </Text>
+        <Text> {questions.length} Cards </Text>
       </View>
     );
   }

@@ -4,8 +4,7 @@ import { Text, View, Button } from 'react-native';
 export default class Deck extends Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.deck,
-    headerRight: <Button title="Add Question" onPress={() => navigation.navigate('NewQuestion', { deck: 'FirstDeck' })} />,
+    headerRight: <Button title="Add Question" onPress={() => navigation.navigate('NewQuestion', navigation.state.params)} />,
   });
 
   render() {
@@ -13,11 +12,13 @@ export default class Deck extends Component {
     const { navigate } = this.props.navigation;
     return (
       <View>
-        <Text> {params.deck} Deck View </Text>
+        <Text>{params.title}</Text>
+        <Text>{params.questions.length} Cards</Text>
         <Button
-          onPress={() => navigate('Quiz', { deck: 'FirstDeck' })}
+          onPress={() => navigate('Quiz', params)}
           title="Start Quiz"
         />
+        <Text> {JSON.stringify(params)} </Text>
       </View>
     );
   }
