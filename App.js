@@ -1,8 +1,12 @@
 import React from 'react';
 import { View, StatusBar } from 'react-native';
+import { createStore, applyMiddleware } from 'redux';
+import { Provider } from 'react-redux';
+import thunk from 'redux-thunk';
 
 import Navigation from './components/Navigation';
-import { dark, light } from './utils/colors';
+import { dark } from './utils/colors';
+import reducer from './reducers';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
   <View>
@@ -13,10 +17,12 @@ const AppStatusBar = ({ backgroundColor, ...props }) => (
 export default class App extends React.Component {
   render() {
     return (
-      <View style={{flex: 1}}>
-        <AppStatusBar backgroundColor={dark} barStyle="light-content" />
-        <Navigation />
-      </View>
+      <Provider store={createStore(reducer, applyMiddleware(thunk))}>
+        <View style={{flex: 1}}>
+          <AppStatusBar backgroundColor={dark} barStyle="light-content" />
+          <Navigation />
+        </View>
+      </Provider>
     );
   }
 }

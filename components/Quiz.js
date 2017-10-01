@@ -4,14 +4,14 @@ import { Text, View } from 'react-native';
 export default class Quiz extends Component {
 
   static navigationOptions = ({ navigation }) => ({
-    title: navigation.state.params.title
+    title: navigation.state.params
   });
 
   render() {
     const { params } = this.props.navigation.state;
     return (
       <View>
-        <Text> {params.title} Quiz View </Text>
+        <Text> {params} Quiz View </Text>
       </View>
     );
   }
