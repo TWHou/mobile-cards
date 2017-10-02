@@ -2,11 +2,14 @@ import React, { Component } from 'react';
 import { Text, View, Button } from 'react-native';
 import { connect } from 'react-redux';
 
+import { light } from '../utils/colors';
+
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => ({
     headerRight: (
       <Button
         title="Add Question"
+        color={light}
         onPress={() =>
           navigation.navigate('NewQuestion', navigation.state.params)}
       />
