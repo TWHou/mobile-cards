@@ -1,5 +1,12 @@
 import React, { Component } from 'react';
-import { TouchableOpacity, View, Button, FlatList, StyleSheet, Platform } from 'react-native';
+import {
+  TouchableOpacity,
+  View,
+  Button,
+  FlatList,
+  StyleSheet,
+  Platform
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import DecksListItem from './DecksListItem';
@@ -12,7 +19,11 @@ class DecksList extends Component {
     return {
       headerTitle: 'Mobile Cards',
       headerRight: (
-        <Button title="Add Deck" color={light} onPress={() => navigate('NewDeck')} />
+        <Button
+          title="Add Deck"
+          color={light}
+          onPress={() => navigate('NewDeck')}
+        />
       )
     };
   };
@@ -22,13 +33,12 @@ class DecksList extends Component {
   };
 
   renderItem = ({ item }) => (
-    <View style={styles.deck}>
-      <TouchableOpacity
-        onPress={() => this.props.navigation.navigate('Deck', item.title)}
-      >
-        <DecksListItem deck={item} />
-      </TouchableOpacity>
-    </View>
+    <TouchableOpacity
+      style={styles.deck}
+      onPress={() => this.props.navigation.navigate('Deck', item.title)}
+    >
+      <DecksListItem deck={item} />
+    </TouchableOpacity>
   );
 
   render() {
@@ -56,9 +66,9 @@ const styles = StyleSheet.create({
     shadowColor: 'rgba(0, 0, 0, 0.24)',
     shadowOffset: {
       width: 0,
-      height: 3,
-    },
-  },
+      height: 3
+    }
+  }
 });
 
 const mapStateToProps = state => ({
