@@ -1,8 +1,18 @@
 import React, { Component } from 'react';
-import { Alert, Text, View, TextInput, Button } from 'react-native';
+import {
+  Alert,
+  Text,
+  KeyboardAvoidingView,
+  TextInput,
+  Button,
+  TouchableOpacity,
+  StyleSheet,
+  Platform
+} from 'react-native';
 import { connect } from 'react-redux';
 
 import { addCard } from '../actions';
+import { light, lightShade, darkTint } from '../utils/colors';
 
 class NewQuestion extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -11,7 +21,9 @@ class NewQuestion extends Component {
 
   state = {
     question: '',
-    answer: ''
+    answer: '',
+    qHeight: 20,
+    aHeight: 20
   };
 
   onSubmit = () => {
@@ -36,28 +48,64 @@ class NewQuestion extends Component {
   };
 
   render() {
-    const { params } = this.props.navigation.state;
+    const { qHeight, aHeight } = this.state;
     return (
-      <View>
-        <Text> {params.title} New Question View </Text>
+      <KeyboardAvoidingView style={styles.container}>
         <TextInput
+          style={[styles.input, { height: qHeight }]}
           onChangeText={question => this.setState({ question })}
+          onContentSizeChange={({ nativeEvent }) => {
+            this.setState({ qHeight: nativeEvent.contentSize.height + 8 });
+          }}
           multiline={true}
-          numberOfLines={4}
           placeholder="Question"
         />
         <TextInput
+          style={[styles.input, { height: aHeight }]}
           onChangeText={answer => this.setState({ answer })}
+          onContentSizeChange={({ nativeEvent }) => {
+            this.setState({ aHeight: nativeEvent.contentSize.height + 8 });
+          }}
           multiline={true}
-          numberOfLines={4}
           placeholder="Answer"
         />
-        <Text>{JSON.stringify(this.state)}</Text>
-        <Button title="Submit" onPress={this.onSubmit} />
-      </View>
+        <TouchableOpacity style={styles.btn} onPress={this.onSubmit}>
+          <Text style={styles.btnText}>Submit</Text>
+        </TouchableOpacity>
+      </KeyboardAvoidingView>
     );
   }
 }
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingTop: 25,
+    backgroundColor: light
+  },
+  input: {
+    width: 300,
+    fontSize: 18,
+    maxHeight: 72,
+    paddingBottom: 8,
+    borderBottomWidth: 1,
+    borderColor: lightShade,
+    margin: 20
+  },
+  btn: {
+    borderRadius: Platform.OS === 'ios' ? 16 : 2,
+    margin: 25,
+    backgroundColor: darkTint,
+    alignItems: 'center',
+    padding: 10
+  },
+  btnText: {
+    color: light,
+    fontSize: 18
+  }
+});
 
 const mapDispatchToProps = {
   addCard
