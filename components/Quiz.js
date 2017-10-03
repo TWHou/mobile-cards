@@ -38,7 +38,7 @@ class Quiz extends Component {
     const { questions } = this.props;
     const { current, correct, showAnswer } = this.state;
     return (
-      <View>
+      <View style={{flex: 1}}>
         {current < questions.length ? (
           <QuizActive
             current={current}
