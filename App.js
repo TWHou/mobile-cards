@@ -8,6 +8,7 @@ import { Constants } from 'expo';
 import Navigation from './components/Navigation';
 import { dark } from './utils/colors';
 import reducer from './reducers';
+import { setLocalNotification } from './utils/notification';
 
 const AppStatusBar = ({ backgroundColor, ...props }) => (
   <View style={{ backgroundColor, height: Constants.statusBarHeight }}>
@@ -16,10 +17,15 @@ const AppStatusBar = ({ backgroundColor, ...props }) => (
 );
 
 export default class App extends React.Component {
+
+  componentDidMount = () => {
+    setLocalNotification();
+  };
+
   render() {
     return (
       <Provider store={createStore(reducer, applyMiddleware(thunk))}>
-        <View style={{flex: 1}}>
+        <View style={{ flex: 1 }}>
           <AppStatusBar backgroundColor={dark} barStyle="light-content" />
           <Navigation />
         </View>
