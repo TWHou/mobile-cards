@@ -1,10 +1,16 @@
 import React, { Component } from 'react';
-import { Alert, Text, KeyboardAvoidingView, TextInput, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import {
+  Alert,
+  KeyboardAvoidingView,
+  TextInput,
+  StyleSheet
+} from 'react-native';
 import { NavigationActions } from 'react-navigation';
 import { connect } from 'react-redux';
 
 import { addDeck } from '../actions';
 import { light, lightShade, darkTint } from '../utils/colors';
+import TextButton from './TextButton';
 
 class NewDeck extends Component {
   static navigationOptions = {
@@ -74,9 +80,9 @@ class NewDeck extends Component {
           onChangeText={name => this.setState({ name })}
           placeholder="Name of Deck"
         />
-        <TouchableOpacity style={styles.btn} onPress={this.onSubmit}>
-          <Text style={styles.btnText}>Submit</Text>
-        </TouchableOpacity>
+        <TextButton btnStyle={styles.btn} onPress={this.onSubmit}>
+          Submit
+        </TextButton>
       </KeyboardAvoidingView>
     );
   }
@@ -88,7 +94,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     paddingTop: 25,
-    backgroundColor: light,
+    backgroundColor: light
   },
   input: {
     width: 300,
@@ -96,18 +102,11 @@ const styles = StyleSheet.create({
     padding: 8,
     borderBottomWidth: 1,
     borderColor: lightShade,
-    margin: 20,
+    margin: 20
   },
   btn: {
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
     margin: 25,
-    backgroundColor: darkTint,
-    alignItems: 'center',
-    padding: 10
-  },
-  btnText: {
-    color: light,
-    fontSize: 18
+    backgroundColor: darkTint
   }
 });
 

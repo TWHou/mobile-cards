@@ -2,12 +2,11 @@ import React, { Component } from 'react';
 import {
   Text,
   View,
-  TouchableOpacity,
-  StyleSheet,
-  Platform
+  StyleSheet
 } from 'react-native';
 
-import { light, midtone } from '../utils/colors';
+import { light } from '../utils/colors';
+import TextButton from './TextButton';
 
 export default class QuizActive extends Component {
   render() {
@@ -23,31 +22,27 @@ export default class QuizActive extends Component {
     } = this.props;
     return (
       <View style={styles.container}>
-        <Text style={{paddingLeft: 5}}>
+        <Text style={{ paddingLeft: 5 }}>
           {current + 1}/{total}
         </Text>
         <View style={styles.section}>
           <Text style={styles.question}>{question}</Text>
         </View>
-        <View style={[styles.section, {justifyContent: 'flex-end'}]}>
+        <View style={[styles.section, { justifyContent: 'flex-end' }]}>
           {showAnswer && <Text style={styles.question}>{answer}</Text>}
           {showAnswer ? (
-            <TouchableOpacity style={styles.btn} onPress={toggle}>
-              <Text style={styles.btnText}>Hide Answer</Text>
-            </TouchableOpacity>
+            <TextButton onPress={toggle}>Hide Answer</TextButton>
           ) : (
-            <TouchableOpacity style={styles.btn} onPress={toggle}>
-              <Text style={styles.btnText}>Show Answer</Text>
-            </TouchableOpacity>
+            <TextButton onPress={toggle}>Show Answer</TextButton>
           )}
         </View>
         <View style={[styles.section]}>
-          <TouchableOpacity style={[styles.btn, {backgroundColor: '#499349'}]} onPress={onRight}>
-            <Text style={styles.btnText}>Correct</Text>
-          </TouchableOpacity>
-          <TouchableOpacity style={[styles.btn, {backgroundColor: '#ad423f'}]} onPress={onWrong}>
-            <Text style={styles.btnText}>Incorrect</Text>
-          </TouchableOpacity>
+          <TextButton btnStyle={{ backgroundColor: '#499349' }} onPress={onRight}>
+            Correct
+          </TextButton>
+          <TextButton btnStyle={{ backgroundColor: '#ad423f' }} onPress={onWrong}>
+            Incorrect
+          </TextButton>
         </View>
       </View>
     );
@@ -73,16 +68,5 @@ const styles = StyleSheet.create({
     fontSize: 24,
     textAlign: 'center',
     fontWeight: 'bold'
-  },
-  btn: {
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
-    margin: 5,
-    backgroundColor: midtone,
-    alignItems: 'center',
-    padding: 10
-  },
-  btnText: {
-    color: light,
-    fontSize: 18
   }
 });

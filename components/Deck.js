@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
-import { Text, View, Button, TouchableOpacity, StyleSheet, Platform } from 'react-native';
+import { Text, View, Button, StyleSheet, Platform } from 'react-native';
 import { connect } from 'react-redux';
 
 import { light, dark, darkTint } from '../utils/colors';
+import TextButton from './TextButton';
 
 class Deck extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -25,12 +26,9 @@ class Deck extends Component {
           <Text style={styles.title}>{title}</Text>
           <Text style={styles.cards}>{questions.length} Cards</Text>
         </View>
-        <TouchableOpacity
-          style={styles.btn}
-          onPress={() => navigate('Quiz', title)}
-        >
-          <Text style={styles.btnText}>Start Quiz</Text>
-        </TouchableOpacity>
+        <TextButton btnStyle={styles.btn} onPress={() => navigate('Quiz', title)}>
+          Start Quiz
+        </TextButton>
       </View>
     );
   }
@@ -62,15 +60,8 @@ const styles = StyleSheet.create({
     color: darkTint
   },
   btn: {
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
     margin: 25,
-    backgroundColor: darkTint,
-    alignItems: 'center',
-    padding: 10
-  },
-  btnText: {
-    color: light,
-    fontSize: 18
+    backgroundColor: darkTint
   }
 });
 

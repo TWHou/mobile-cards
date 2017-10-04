@@ -1,17 +1,15 @@
 import React, { Component } from 'react';
 import {
   Alert,
-  Text,
   KeyboardAvoidingView,
   TextInput,
-  TouchableOpacity,
-  StyleSheet,
-  Platform
+  StyleSheet
 } from 'react-native';
 import { connect } from 'react-redux';
 
 import { addCard } from '../actions';
 import { light, lightShade, darkTint } from '../utils/colors';
+import TextButton from './TextButton';
 
 class NewQuestion extends Component {
   static navigationOptions = ({ navigation }) => ({
@@ -68,9 +66,9 @@ class NewQuestion extends Component {
           multiline={true}
           placeholder="Answer"
         />
-        <TouchableOpacity style={styles.btn} onPress={this.onSubmit}>
-          <Text style={styles.btnText}>Submit</Text>
-        </TouchableOpacity>
+        <TextButton btnStyle={styles.btn} onPress={this.onSubmit}>
+          Submit
+        </TextButton>
       </KeyboardAvoidingView>
     );
   }
@@ -94,15 +92,8 @@ const styles = StyleSheet.create({
     margin: 20
   },
   btn: {
-    borderRadius: Platform.OS === 'ios' ? 16 : 2,
     margin: 25,
-    backgroundColor: darkTint,
-    alignItems: 'center',
-    padding: 10
-  },
-  btnText: {
-    color: light,
-    fontSize: 18
+    backgroundColor: darkTint
   }
 });
 
