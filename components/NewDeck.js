@@ -18,13 +18,13 @@ class NewDeck extends Component {
   };
 
   state = {
-    name: ''
+    title: ''
   };
 
   onSubmit = () => {
-    const { name } = this.state;
+    const { title } = this.state;
     const { decks } = this.props;
-    if (decks[name]) {
+    if (decks[title]) {
       Alert.alert(
         'Deck already exists',
         'Do you want to add card to the deck or add a different deck?',
@@ -43,11 +43,11 @@ class NewDeck extends Component {
                     NavigationActions.navigate({ routeName: 'Home' }),
                     NavigationActions.navigate({
                       routeName: 'Deck',
-                      params: name
+                      params: title
                     }),
                     NavigationActions.navigate({
                       routeName: 'NewQuestion',
-                      params: name
+                      params: title
                     })
                   ]
                 })
@@ -57,18 +57,26 @@ class NewDeck extends Component {
       );
     } else {
       const deck = {
-        [this.state.name]: {
-          title: this.state.name,
+        [this.state.title]: {
+          title: this.state.title,
           questions: []
         }
       };
       this.props.addDeck(deck);
-      this.props.navigation.dispatch(
-        NavigationActions.reset({
-          index: 0,
-          actions: [NavigationActions.navigate({ routeName: 'Home' })]
-        })
-      );
+      setTimeout(() => {
+        this.props.navigation.dispatch(
+          NavigationActions.reset({
+            index: 1,
+            actions: [
+              NavigationActions.navigate({ routeName: 'Home' }),
+              NavigationActions.navigate({
+                routeName: 'Deck',
+                params: title
+              })
+            ]
+          })
+        );
+      }, 500);
     }
   };
 
@@ -77,7 +85,7 @@ class NewDeck extends Component {
       <KeyboardAvoidingView style={styles.container}>
         <TextInput
           style={styles.input}
-          onChangeText={name => this.setState({ name })}
+          onChangeText={title => this.setState({ title })}
           placeholder="Name of Deck"
         />
         <TextButton btnStyle={styles.btn} onPress={this.onSubmit}>
