@@ -3,11 +3,11 @@
 A flashcards app for mobile devices.
 
 ## Prerequisites
-   - Xcode
-   - Android SDK
-   - Node
-   - Yarn or npm (there may be a bug in npm 5.3.0, it is recommended to use npm 4.6.1 or yarn)
-   - Expo or create-react-native-app
+- Xcode
+- Android SDK
+- Node
+- Yarn or npm (there may be a bug in npm 5.3.0, it is recommended to use npm 4.6.1 or yarn)
+- Expo or create-react-native-app
 
 ## Local Deployment Instruction
 1. Download or clone this repository.

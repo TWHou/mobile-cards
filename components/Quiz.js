@@ -34,11 +34,23 @@ class Quiz extends Component {
     this.setState(({ showAnswer }) => ({ showAnswer: !showAnswer }));
   };
 
+  reset = () => {
+    this.setState({
+      current: 0,
+      correct: 0,
+      showAnswer: false
+    });
+  };
+
+  goBack = () => {
+    this.props.navigation.goBack();
+  }
+
   render() {
     const { questions } = this.props;
     const { current, correct, showAnswer } = this.state;
     return (
-      <View style={{flex: 1}}>
+      <View style={{ flex: 1 }}>
         {current < questions.length ? (
           <QuizActive
             current={current}
@@ -51,7 +63,12 @@ class Quiz extends Component {
             onWrong={this.nextQ}
           />
         ) : (
-          <QuizEnd correct={correct} total={questions.length} />
+          <QuizEnd
+            correct={correct}
+            total={questions.length}
+            reset={this.reset}
+            goBack={this.goBack}
+          />
         )}
       </View>
     );
